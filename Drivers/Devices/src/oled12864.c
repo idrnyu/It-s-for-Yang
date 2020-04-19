@@ -162,15 +162,15 @@ void SSD1306_GotoXY(uint16_t x, uint16_t y)
  */
 char SSD1306_Putc(char ch, FontDef_t *Font, SSD1306_COLOR_t color, FontWeight B)
 {
-  uint32_t n, i, j, data, index = 0, singleDataSize = 8;
+  uint16_t n, i, j, data, index = 0, singleDataSize = 8;
 
   /* 检测可用空间 检测范围 */
   if (SSD1306_WIDTH <= (SSD1306.CurrentX + Font->FontWidth) || SSD1306_HEIGHT <= (SSD1306.CurrentY + Font->FontHeight))
   {
-    // SSD1306.CurrentX = 0;
-    // SSD1306.CurrentY = SSD1306.CurrentY + 2;
+    SSD1306.CurrentX = 0;
+    SSD1306.CurrentY = SSD1306.CurrentY + 2;
     /* Error */
-    return 0;
+    // return 0;
   }
 
   uint8_t num = (Font->StrSize + singleDataSize - 1) / singleDataSize;
@@ -624,35 +624,85 @@ void SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t
   }
 }
 
-void OLED_Set_Pos(uint8_t x, uint8_t y)
+// 显示一个中文字符 
+void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
 {
-	SSD1306_Write(0xb0 + y, SSD1306_CMD);
-	SSD1306_Write(((x & 0xf0) >> 4) | 0x10, SSD1306_CMD);
-	SSD1306_Write((x & 0x0f), SSD1306_CMD);
-}
-void SSD1306_ShowCH_Word(uint8_t x, uint8_t y, uint8_t *str)
-{
-  uint8_t t = 0;
-  uint16_t index;
-  for (index = 0; index < sizeof(Hzk) / 35; index++)
+  uint8_t t = 0, data;
+  uint16_t i, j;
+  for (i = 0; i < sizeof(Hzk16x16) / 35; i++)
 	{
-		if (Hzk[index].name[0] == str[0] && Hzk[index].name[1] == str[1]) //对比汉字区码位码
+		if (Hzk16x16[i].name[0] == str[0] && Hzk16x16[i].name[1] == str[1]) //对比汉字区码位码
 		{
-			OLED_Set_Pos(x, y);			 //设置OLED光标位置
 			for (t = 0; t < 16; t++) //先写汉字上半部分数据
 			{
-        SSD1306_Write(Hzk[index].dat[t], SSD1306_DATA);
+        data = Hzk16x16[i].dat[t];
+        if (B == bold && t != 0)
+          data = Hzk16x16[i].dat[t-1] | data;
+        for (j = 0; j < 8; j++)
+        {
+          if ((data >> j) & 0x01)
+          {
+            SSD1306_DrawPixel(SSD1306.CurrentX + t, (SSD1306.CurrentY + j), (SSD1306_COLOR_t)color);
+          }
+          else
+          {
+            SSD1306_DrawPixel(SSD1306.CurrentX + t, (SSD1306.CurrentY + j), (SSD1306_COLOR_t)!color);
+          }
+        }
 			}
-			OLED_Set_Pos(x, y + 1);	 //设置OLED光标位置
 			for (t = 0; t < 16; t++) //再写汉字下半部分数据
 			{
-        SSD1306_Write(Hzk[index].dat[t + 16], SSD1306_DATA);
+        data = Hzk16x16[i].dat[t + 16];
+        if (B == bold && t != 0)
+          data = Hzk16x16[i].dat[t + 16 - 1] | data;
+        for (j = 0; j < 8; j++)
+        {
+          if ((data >> j) & 0x01)
+          {
+            SSD1306_DrawPixel(SSD1306.CurrentX + t, (SSD1306.CurrentY + j + 8), (SSD1306_COLOR_t)color);
+          }
+          else
+          {
+            SSD1306_DrawPixel(SSD1306.CurrentX + t, (SSD1306.CurrentY + j + 8), (SSD1306_COLOR_t)!color);
+          }
+        }
 			}
 		}
 	}
+  SSD1306.CurrentX += 16;
 }
 
-
+void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
+{
+  uint8_t tempstr[3] = {'\0'};
+  while (*str != '\0')
+  {
+    if (*str & 0x80)
+		{
+			tempstr[0] = *str++;
+			tempstr[1] = *str++;
+			OLED_Show_16x16HZ(tempstr, color, B);
+			// SSD1306.CurrentX += 16;
+			if (SSD1306.CurrentX >= 112)
+			{
+				SSD1306.CurrentY++;
+				SSD1306.CurrentY++;
+				SSD1306.CurrentX = 0;
+			} //修改地址
+		}
+		else
+		{
+      SSD1306_Putc(*str++, &Font_8x16, color, B);
+			// SSD1306.CurrentX += 8;
+			if (SSD1306.CurrentX >= 112)
+			{
+				SSD1306.CurrentY++;
+				SSD1306.CurrentY++;
+				SSD1306.CurrentX = 0;
+			} //修改地址
+		}
+  }
+}
 
 void SSD1306_ON(void)
 {

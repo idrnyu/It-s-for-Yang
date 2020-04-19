@@ -43,7 +43,7 @@ extern FontDef_t Font_6x8;
 extern FontDef_t Font_8x16;
 
 
-extern chinese Hzk[26];
+extern chinese Hzk16x16[26];
 
 
 /**

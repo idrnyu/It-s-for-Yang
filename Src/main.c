@@ -127,16 +127,20 @@ int main(void)
 	// SSD1306_DrawLine2(0, 0, 128, 64, SSD1306_COLOR_WHITE);
 	// SSD1306_DrawRectangle(0, 2, 20, 20, SSD1306_COLOR_WHITE);
 	// SSD1306_DrawFilledRectangle(22, 2, 20, 20, SSD1306_COLOR_WHITE);
-	SSD1306_GotoXY(0, 0);
-	SSD1306_Puts("Christian idrnyu", &Font_6x8, SSD1306_COLOR_WHITE, initial);
-	SSD1306_GotoXY(0, 8);
-	SSD1306_Puts("Christian YU", &Font_8x16, SSD1306_COLOR_WHITE, bold);
+	// SSD1306_GotoXY(0, 0);
+	// SSD1306_Puts("Christian idrnyu", &Font_6x8, SSD1306_COLOR_WHITE, initial);
+	// SSD1306_GotoXY(0, 8);
+	// SSD1306_Puts("Christian YU", &Font_8x16, SSD1306_COLOR_WHITE, bold);
 	// SSD1306_GotoXY(0, 24);
 	// SSD1306_Puts("! 0 1 2 3 4 5", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+  SSD1306_GotoXY(0, 0);
+  OLED_ShowText("中str 上123", SSD1306_COLOR_WHITE, initial);
+  SSD1306_GotoXY(0, 16);
+  OLED_ShowText("中str 上123", SSD1306_COLOR_WHITE, bold);
 	SSD1306_UpdateScreen();            // 更新显示
 	// OLED_Scroll_Display(0, 7, LEFT);
 
-  SSD1306_ShowCH_Word(0, 0, "中");
+  // OLED_Show_16x16HZ(0, 0, "中");
 
   // OLED_ShowChar(0,0,'2',&Font_6x7);
 	

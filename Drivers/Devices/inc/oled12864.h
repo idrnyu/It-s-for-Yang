@@ -202,8 +202,8 @@ void SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t
  */
 void OLED_Scroll_Display(uint8_t start, uint8_t end, enum DIRECTION dirct);
 
-void OLED_Set_Pos(uint8_t x, uint8_t y);
-void SSD1306_ShowCH_Word(uint8_t x, uint8_t y, uint8_t *str);
+void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B);
+void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B);
 
 // ¿ªÏÔÊ¾
 void SSD1306_ON(void);

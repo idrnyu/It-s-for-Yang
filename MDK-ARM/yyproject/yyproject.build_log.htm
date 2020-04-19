@@ -27,7 +27,16 @@ Project File Date:  04/19/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'yyproject'
-"yyproject\yyproject.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Src/main.c(154): warning:  #128-D: loop is not reachable
+    while (1)
+../Src/main.c(81): warning:  #177-D: variable "AD_DMA"  was declared but never referenced
+  	uint32_t AD_DMA[3];   // 保存adc转换的值 三个通道数据
+../Src/main.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=16204 RO-data=1876 RW-data=964 ZI-data=3116  
+FromELF: creating hex file...
+"yyproject\yyproject.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
