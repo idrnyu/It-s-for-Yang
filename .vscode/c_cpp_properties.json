@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "D:/Keil_v5/ARM/ARMCC/include",
+                "D:/Keil_v5/ARM/PACK/ARM/CMSIS/5.3.0/CMSIS/Include",
+                "D:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include",
+                "D:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/StdPeriph_Driver/inc",
+                "${workspaceFolder}/Drivers/STM32F1xx_HAL_Driver/Inc",
+                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F1xx/Include"
+            ],
+            "defines": [
+                "STM32F10X_MD",
+                "USE_STDPERIPH_DRIVER"
+            ],
+            "windowsSdkVersion": "8.1",
+            "cStandard": "c99",
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}

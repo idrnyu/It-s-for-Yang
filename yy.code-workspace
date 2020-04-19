@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"string.h": "c",
+			"new": "c",
+			"usart.h": "c",
+			"stm32f10x.h": "c",
+			"calendar_util.h": "c",
+			"main.h": "c",
+			"stm32f1xx_hal.h": "c",
+			"adc.h": "c",
+			"nrf24l01.h": "c",
+			"string": "c",
+			"fonts.h": "c",
+			"limits": "cpp",
+			"memory": "cpp"
+		},
+		"files.encoding": "gb2312"
+	}
+}
