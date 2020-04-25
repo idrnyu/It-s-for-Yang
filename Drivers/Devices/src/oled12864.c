@@ -672,6 +672,7 @@ void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
   SSD1306.CurrentX += 16;
 }
 
+// 中英混显
 void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
 {
   uint8_t tempstr[3] = {'\0'};
@@ -702,6 +703,21 @@ void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
 			} //修改地址
 		}
   }
+}
+
+// 显示图
+// void OLED_ShowIcon()
+
+/****************************
+** 设置坐标点
+** x: 行坐标 0~127
+** y: 页坐标 0~7
+*****************************/
+void OLCD_Set_Pos(uint8_t x, uint8_t y)
+{
+    SSD1306_Write(0xb0+y, SSD1306_CMD);
+    SSD1306_Write(((x&0xf0)>>4)|0x10, SSD1306_CMD);
+    SSD1306_Write((x&0x0f)|0x01, SSD1306_CMD);
 }
 
 void SSD1306_ON(void)
