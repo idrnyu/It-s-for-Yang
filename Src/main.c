@@ -146,7 +146,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  return 1;
   while (1)
   {
 		// Delay_ms(100);
@@ -192,7 +191,7 @@ int main(void)
 				printf("发送完成 \r\n");
 			}
       sprintf(t, "%.1f", temp);
-			SSD1306_GotoXY(0, 24);
+			SSD1306_GotoXY(0, 32);
       SSD1306_Puts(t, &Font_8x16, SSD1306_COLOR_WHITE, initial);
 	    SSD1306_UpdateScreen();            // 更新显示
 		}
