@@ -110,13 +110,12 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 	HAL_UART_Receive_DMA(&huart1,USART_RxBuffer,1);  // 打开串口1 DMA的接收使能
+  // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA发送数据
 	printf("本系统由耶稣基督教徒龚宇开发\r\n");
 	printf("2020年4月5日开始设计\r\n");
 	printf("串口1初始化完成\r\n");
-	Delay_ms(3000);
 
   SSD1306_Init();  // OLED12864 初始化
-  // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA发送数据
 	DHT22Status = DHT11_Init();  // 初始化DHT22温湿度传感器
 	HAL_ADCEx_Calibration_Start(&hadc1);  // 开启ADC校准
 	HAL_SPI_Init(&hspi1);  // 使能SPI
@@ -195,7 +194,7 @@ int main(void)
       SSD1306_Puts(t, &Font_8x16, SSD1306_COLOR_WHITE, initial);
 	    SSD1306_UpdateScreen();            // 更新显示
 		}
-		Delay_ms(3000);
+		// Delay_ms(3000);
 
     // if(NRF24L01_RxPacket(NRF24L01_Buffer)==0)
     // {
