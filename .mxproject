@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=F:/STM32ѧϰ/It-s-for-Yang/Inc
+HeaderPath=F:/STM32Study/It-s-for-Yang/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;gpio.h;adc.h;dma.h;spi.h;usart.h;i2c.h;tim.h;
-SourcePath=F:/STM32ѧϰ/It-s-for-Yang/Src
+SourcePath=F:/STM32Study/It-s-for-Yang/Src
 SourceFiles=stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;gpio.c;adc.c;dma.c;spi.c;usart.c;i2c.c;tim.c;
 
 [PreviousLibFiles]

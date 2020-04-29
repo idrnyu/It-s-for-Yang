@@ -17,11 +17,11 @@ Library Manager: ArmAr.exe V5.06 update 6 (build 750)
 Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
 CPU DLL:         SARMCM3.DLL V5.25.2.0
 Dialog DLL:      DCM.DLL V1.17.1.0
-Target DLL:      Segger\JL2CM3.dll V2.99.29.0
+Target DLL:      CMSIS_AGDI.dll V1.29.10.0
 Dialog DLL:      TCM.DLL V1.35.1.0
  
 <h2>Project:</h2>
-F:\STM32学习\It-s-for-Yang\MDK-ARM\yyproject.uvprojx
+F:\STM32Study\It-s-for-Yang\MDK-ARM\yyproject.uvprojx
 Project File Date:  04/29/2020
 
 <h2>Output:</h2>
@@ -29,18 +29,16 @@ Project File Date:  04/29/2020
 Build target 'yyproject'
 compiling main.c...
 ../Src/main.c(80): warning:  #177-D: variable "temp"  was declared but never referenced
-    float temp = 0, humi = 0;  // 温湿度变量
+    float temp = 0, humi = 0;    // 温湿度变量
 ../Src/main.c(80): warning:  #177-D: variable "humi"  was declared but never referenced
-    float temp = 0, humi = 0;  // 温湿度变量
+    float temp = 0, humi = 0;    // 温湿度变量
 ../Src/main.c(81): warning:  #177-D: variable "AD_DMA"  was declared but never referenced
-  	uint32_t AD_DMA[3];   // 保存adc转换的值 三个通道数据
-../Src/main.c(83): warning:  #177-D: variable "t"  was declared but never referenced
-    char t[4];
-../Src/main.c: 4 warnings, 0 errors
+    uint32_t AD_DMA[3];          // 保存adc转换的值 三个通道数据
+../Src/main.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=17464 RO-data=356 RW-data=28 ZI-data=1580  
+Program Size: Code=20404 RO-data=1876 RW-data=928 ZI-data=3112  
 FromELF: creating hex file...
-"yyproject\yyproject.axf" - 0 Error(s), 4 Warning(s).
+"yyproject\yyproject.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
