@@ -135,7 +135,7 @@ int main(void)
   SSD1306_GotoXY(0, 16);
   OLED_ShowText("我爱耶稣", SSD1306_COLOR_WHITE, bold);
   SSD1306_UpdateScreen(); // 更新显示
-                          // OLED_Scroll_Display(0, 7, LEFT);
+  // OLED_Scroll_Display(0, 7, LEFT);
 
   /* USER CODE END 2 */
 
@@ -181,8 +181,14 @@ int main(void)
     	NRF24L01_Buffer[1] = t2;  // 温度的小数
     	NRF24L01_Buffer[2] = h1;	// 湿度的整数
     	NRF24L01_Buffer[3] = h2;	// 湿度的小数
+      SSD1306_GotoXY(0, 48);
+      SSD1306_Puts("*", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+      SSD1306_UpdateScreen(); // 更新显示
     	if(NRF24L01_TxPacket(NRF24L01_Buffer)==TX_OK)
     	{
+        SSD1306_GotoXY(0, 48);
+        SSD1306_Puts("0", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_UpdateScreen(); // 更新显示
     		printf("发送完成 \r\n");
     	}
       sprintf(t, "%.1f", temp);
@@ -190,26 +196,29 @@ int main(void)
       SSD1306_Puts(t, &Font_8x16, SSD1306_COLOR_WHITE, initial);
       SSD1306_UpdateScreen();            // 更新显示
     }
-    // Delay_ms(3000);
+    else
+    {
+      if (NRF24L01_RxPacket(NRF24L01_Buffer) == 0)
+      {
+        float RX_temp = NRF24L01_Buffer[0] + NRF24L01_Buffer[1] / 100.0;
+        float RX_humi = NRF24L01_Buffer[2] + NRF24L01_Buffer[3] / 100.0;
+        printf("收到数据，\r\n当前温度：%f \r\n当前湿度：%f \r\n\r\n", RX_temp, RX_humi);
+        sprintf(t, "%.1f", RX_temp);
+        SSD1306_GotoXY(0, 32);
+        SSD1306_Puts(t, &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_GotoXY(0, 48);
+        SSD1306_Puts("*", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_UpdateScreen(); // 更新显示
+      }
+      else
+      {
+        SSD1306_GotoXY(0, 48);
+        SSD1306_Puts("0", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_UpdateScreen(); // 更新显示
+      }
+    }
+    
 
-    // if (NRF24L01_RxPacket(NRF24L01_Buffer) == 0)
-    // {
-    //   float RX_temp = NRF24L01_Buffer[0] + NRF24L01_Buffer[1] / 100.0;
-    //   float RX_humi = NRF24L01_Buffer[2] + NRF24L01_Buffer[3] / 100.0;
-    //   printf("收到数据，\r\n当前温度：%f \r\n当前湿度：%f \r\n\r\n", RX_temp, RX_humi);
-    //   sprintf(t, "%.1f", RX_temp);
-    //   SSD1306_GotoXY(0, 32);
-    //   SSD1306_Puts(t, &Font_8x16, SSD1306_COLOR_WHITE, initial);
-    //   SSD1306_GotoXY(0, 48);
-    //   SSD1306_Puts("*", &Font_8x16, SSD1306_COLOR_WHITE, initial);
-    //   SSD1306_UpdateScreen(); // 更新显示
-    // }
-    // else
-    // {
-    //   SSD1306_GotoXY(0, 48);
-    //   SSD1306_Puts("0", &Font_8x16, SSD1306_COLOR_WHITE, initial);
-    //   SSD1306_UpdateScreen(); // 更新显示
-    // }
 
     // while(NRF24L01_Check())  // 检测不到24L01
     // {

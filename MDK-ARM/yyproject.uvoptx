@@ -120,7 +120,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"CMSIS-DAP" -U0001A0000001 -O206 -S9 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(1BA01477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8009 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_128.FLM -FS08000000 -FL020000 -FP0($$Device:STM32F100C8$Flash\STM32F10x_128.FLM)</Name>
+          <Name>-X"CMSIS-DAP" -U0001A0000001 -O206 -S8 -C0 -P00 -N00("ARM CoreSight SW-DP") -D00(1BA01477) -L00(0) -TO18 -TC10000000 -TP20 -TDS8009 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_128.FLM -FS08000000 -FL020000 -FP0($$Device:STM32F100C8$Flash\STM32F10x_128.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -140,7 +140,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>?</Name>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -162,50 +162,82 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>639</LineNumber>
+          <LineNumber>111</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134230932</Address>
+          <Address>134237526</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>F:\STM32瀛︿範\It-s-for-Yang\Drivers\Devices\src\oled12864.c</Filename>
+          <Filename>../Src/main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\yyproject\../Drivers/Devices/src/oled12864.c\639</Expression>
+          <Expression>\\yyproject\../Src/main.c\111</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>637</LineNumber>
+          <LineNumber>113</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231024</Address>
+          <Address>134237536</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>F:\STM32瀛︿範\It-s-for-Yang\Drivers\Devices\src\oled12864.c</Filename>
+          <Filename>../Src/main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\yyproject\../Drivers/Devices/src/oled12864.c\637</Expression>
+          <Expression>\\yyproject\../Src/main.c\113</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>641</LineNumber>
+          <LineNumber>114</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134230962</Address>
+          <Address>134237542</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>F:\STM32瀛︿範\It-s-for-Yang\Drivers\Devices\src\oled12864.c</Filename>
+          <Filename>../Src/main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\yyproject\../Drivers/Devices/src/oled12864.c\641</Expression>
+          <Expression>\\yyproject\../Src/main.c\114</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>115</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134237548</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>../Src/main.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\yyproject\../Src/main.c\115</Expression>
+        </Bp>
+        <Bp>
+          <Number>4</Number>
+          <Type>0</Type>
+          <LineNumber>117</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134237554</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>../Src/main.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\yyproject\../Src/main.c\117</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -266,7 +298,7 @@
         <Enable>1</Enable>
         <EnableLog>0</EnableLog>
         <Protocol>2</Protocol>
-        <DbgClock>5000000</DbgClock>
+        <DbgClock>10000000</DbgClock>
       </DebugDescription>
     </TargetOption>
   </Target>
