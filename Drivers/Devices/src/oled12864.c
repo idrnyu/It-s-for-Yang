@@ -624,20 +624,20 @@ void SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t
   }
 }
 
-// 显示一个中文字符 
+// 显示一个中文字符
 void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
 {
   uint8_t t = 0, data;
   uint16_t i, j;
   for (i = 0; i < sizeof(Hzk16x16) / 35; i++)
-	{
-		if (Hzk16x16[i].name[0] == str[0] && Hzk16x16[i].name[1] == str[1]) //对比汉字区码位码
-		{
-			for (t = 0; t < 16; t++) //先写汉字上半部分数据
-			{
+  {
+    if (Hzk16x16[i].name[0] == str[0] && Hzk16x16[i].name[1] == str[1]) //对比汉字区码位码
+    {
+      for (t = 0; t < 16; t++) //先写汉字上半部分数据
+      {
         data = Hzk16x16[i].dat[t];
         if (B == bold && t != 0)
-          data = Hzk16x16[i].dat[t-1] | data;
+          data = Hzk16x16[i].dat[t - 1] | data;
         for (j = 0; j < 8; j++)
         {
           if ((data >> j) & 0x01)
@@ -649,9 +649,9 @@ void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
             SSD1306_DrawPixel(SSD1306.CurrentX + t, (SSD1306.CurrentY + j), (SSD1306_COLOR_t)!color);
           }
         }
-			}
-			for (t = 0; t < 16; t++) //再写汉字下半部分数据
-			{
+      }
+      for (t = 0; t < 16; t++) //再写汉字下半部分数据
+      {
         data = Hzk16x16[i].dat[t + 16];
         if (B == bold && t != 0)
           data = Hzk16x16[i].dat[t + 16 - 1] | data;
@@ -666,9 +666,9 @@ void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
             SSD1306_DrawPixel(SSD1306.CurrentX + t, (SSD1306.CurrentY + j + 8), (SSD1306_COLOR_t)!color);
           }
         }
-			}
-		}
-	}
+      }
+    }
+  }
   SSD1306.CurrentX += 16;
 }
 
@@ -679,34 +679,67 @@ void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
   while (*str != '\0')
   {
     if (*str & 0x80)
-		{
-			tempstr[0] = *str++;
-			tempstr[1] = *str++;
-			OLED_Show_16x16HZ(tempstr, color, B);
-			// SSD1306.CurrentX += 16;
-			if (SSD1306.CurrentX >= 112)
-			{
-				SSD1306.CurrentY++;
-				SSD1306.CurrentY++;
-				SSD1306.CurrentX = 0;
-			} //修改地址
-		}
-		else
-		{
+    {
+      tempstr[0] = *str++;
+      tempstr[1] = *str++;
+      OLED_Show_16x16HZ(tempstr, color, B);
+      // SSD1306.CurrentX += 16;
+      if (SSD1306.CurrentX >= 112)
+      {
+        SSD1306.CurrentY++;
+        SSD1306.CurrentY++;
+        SSD1306.CurrentX = 0;
+      } //修改地址
+    }
+    else
+    {
       SSD1306_Putc(*str++, &Font_8x16, color, B);
-			// SSD1306.CurrentX += 8;
-			if (SSD1306.CurrentX >= 112)
-			{
-				SSD1306.CurrentY++;
-				SSD1306.CurrentY++;
-				SSD1306.CurrentX = 0;
-			} //修改地址
-		}
+      // SSD1306.CurrentX += 8;
+      if (SSD1306.CurrentX >= 112)
+      {
+        SSD1306.CurrentY++;
+        SSD1306.CurrentY++;
+        SSD1306.CurrentX = 0;
+      } //修改地址
+    }
   }
 }
 
-// 显示图
-// void OLED_ShowIcon()
+// 显示图指定图标
+void OLED_ShowIcon(uint16_t index_, FontDef_t *Font, SSD1306_COLOR_t color)
+{
+  uint16_t n, i, j, data, index = 0, singleDataSize = 8;
+  /* 检测可用空间 检测范围 */
+  if (SSD1306_WIDTH <= (SSD1306.CurrentX + Font->FontWidth) || SSD1306_HEIGHT <= (SSD1306.CurrentY + Font->FontHeight))
+  {
+    SSD1306.CurrentX = 0;
+    SSD1306.CurrentY = SSD1306.CurrentY + 2;
+    /* Error */
+    // return 0;
+  }
+  uint8_t num = (Font->StrSize + singleDataSize - 1) / singleDataSize;
+  for (n = 0; n < num; n++)
+  {
+    for (i = 0; i < Font->FontWidth; i++)
+    {
+      index = index_ * Font->StrSize + i + (n * singleDataSize);
+      data = Font->data[index];
+      for (j = 0; j < singleDataSize; j++)
+      {
+        if ((data >> j) & 0x01)
+        {
+          SSD1306_DrawPixel(SSD1306.CurrentX + i, (SSD1306.CurrentY + j + (n * singleDataSize)), (SSD1306_COLOR_t)color);
+        }
+        else
+        {
+          SSD1306_DrawPixel(SSD1306.CurrentX + i, (SSD1306.CurrentY + j + (n * singleDataSize)), (SSD1306_COLOR_t)!color);
+        }
+      }
+    }
+  }
+  // /* Increase pointer */
+  SSD1306.CurrentX += Font->FontWidth;
+}
 
 /****************************
 ** 设置坐标点
@@ -715,9 +748,9 @@ void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B)
 *****************************/
 void OLCD_Set_Pos(uint8_t x, uint8_t y)
 {
-    SSD1306_Write(0xb0+y, SSD1306_CMD);
-    SSD1306_Write(((x&0xf0)>>4)|0x10, SSD1306_CMD);
-    SSD1306_Write((x&0x0f)|0x01, SSD1306_CMD);
+  SSD1306_Write(0xb0 + y, SSD1306_CMD);
+  SSD1306_Write(((x & 0xf0) >> 4) | 0x10, SSD1306_CMD);
+  SSD1306_Write((x & 0x0f) | 0x01, SSD1306_CMD);
 }
 
 void SSD1306_ON(void)
@@ -744,7 +777,7 @@ void SSD1306_OFF(void)
 void OLED_Scroll_Display(uint8_t start, uint8_t end, enum DIRECTION dirct)
 {
   if (start > 7 || end > 7)
-    return;                  // 页码超出
+    return;                          // 页码超出
   SSD1306_Write(0x2E, SSD1306_CMD);  // 关闭滚动
   SSD1306_Write(dirct, SSD1306_CMD); // 向左/右滚动
   SSD1306_Write(0x00, SSD1306_CMD);  // 空制令

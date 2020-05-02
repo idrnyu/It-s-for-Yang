@@ -206,6 +206,8 @@ void OLED_Scroll_Display(uint8_t start, uint8_t end, enum DIRECTION dirct);
 void OLED_Show_16x16HZ(uint8_t *str, SSD1306_COLOR_t color, FontWeight B);
 // 中英混显
 void OLED_ShowText(uint8_t *str, SSD1306_COLOR_t color, FontWeight B);
+// 显示图指定图标
+void OLED_ShowIcon(uint16_t index_, FontDef_t *Font, SSD1306_COLOR_t color);
 
 
 // 设置坐标点

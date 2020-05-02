@@ -181,13 +181,13 @@ int main(void)
     	NRF24L01_Buffer[1] = t2;  // 温度的小数
     	NRF24L01_Buffer[2] = h1;	// 湿度的整数
     	NRF24L01_Buffer[3] = h2;	// 湿度的小数
-      SSD1306_GotoXY(0, 48);
-      SSD1306_Puts("*", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+      SSD1306_GotoXY(110, 1);
+      OLED_ShowIcon(1, &Icon_5x7, SSD1306_COLOR_WHITE);
       SSD1306_UpdateScreen(); // 更新显示
     	if(NRF24L01_TxPacket(NRF24L01_Buffer)==TX_OK)
     	{
-        SSD1306_GotoXY(0, 48);
-        SSD1306_Puts("0", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_GotoXY(110, 1);
+        OLED_ShowIcon(0, &Icon_5x7, SSD1306_COLOR_WHITE);
         SSD1306_UpdateScreen(); // 更新显示
     		printf("发送完成 \r\n");
     	}
@@ -206,14 +206,14 @@ int main(void)
         sprintf(t, "%.1f", RX_temp);
         SSD1306_GotoXY(0, 32);
         SSD1306_Puts(t, &Font_8x16, SSD1306_COLOR_WHITE, initial);
-        SSD1306_GotoXY(0, 48);
-        SSD1306_Puts("*", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_GotoXY(115, 1);
+        OLED_ShowIcon(1, &Icon_5x7, SSD1306_COLOR_WHITE);
         SSD1306_UpdateScreen(); // 更新显示
       }
       else
       {
-        SSD1306_GotoXY(0, 48);
-        SSD1306_Puts("0", &Font_8x16, SSD1306_COLOR_WHITE, initial);
+        SSD1306_GotoXY(115, 1);
+        OLED_ShowIcon(0, &Icon_5x7, SSD1306_COLOR_WHITE);
         SSD1306_UpdateScreen(); // 更新显示
       }
     }
