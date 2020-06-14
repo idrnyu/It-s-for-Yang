@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F100xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;                                        ../Drivers/STM32F1xx_HAL_Driver/Inc;                                        ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;                                        ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;                                        ../Drivers/CMSIS/Include;                                        ..\Drivers\Devices\inc</IncludePath>
+              <IncludePath>../Inc;                                         ../Drivers/STM32F1xx_HAL_Driver/Inc;                                         ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;                                         ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;                                         ../Drivers/CMSIS/Include;                                         ..\Drivers\Devices\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -415,11 +415,6 @@
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Src/spi.c</FilePath>
             </File>
             <File>
               <FileName>tim.c</FileName>
@@ -517,11 +512,6 @@
               <FilePath>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f1xx_hal_tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c</FilePath>
@@ -555,16 +545,6 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Devices\src\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>nrf24l01.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Devices\src\nrf24l01.c</FilePath>
-            </File>
-            <File>
-              <FileName>dht11.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Devices\src\dht11.c</FilePath>
             </File>
             <File>
               <FileName>oled12864.c</FileName>

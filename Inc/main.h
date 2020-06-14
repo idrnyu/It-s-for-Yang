@@ -58,28 +58,24 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define DHT22_Pin GPIO_PIN_13
-#define DHT22_GPIO_Port GPIOC
 #define switch_out_Pin GPIO_PIN_15
 #define switch_out_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_0
 #define LED1_GPIO_Port GPIOD
 #define LED2_Pin GPIO_PIN_1
 #define LED2_GPIO_Port GPIOD
-#define RF24L01_CE_Pin GPIO_PIN_3
-#define RF24L01_CE_GPIO_Port GPIOA
-#define RF24L01_CNS_Pin GPIO_PIN_4
-#define RF24L01_CNS_GPIO_Port GPIOA
-#define NRF24L01_IRQ_Pin GPIO_PIN_0
-#define NRF24L01_IRQ_GPIO_Port GPIOB
-#define model_Pin GPIO_PIN_11
-#define model_GPIO_Port GPIOB
-#define KEY_OFF_Pin GPIO_PIN_11
-#define KEY_OFF_GPIO_Port GPIOA
-#define KEY_ON_Pin GPIO_PIN_12
-#define KEY_ON_GPIO_Port GPIOA
-#define encoder_Z_Pin GPIO_PIN_4
-#define encoder_Z_GPIO_Port GPIOB
+#define M0_Pin GPIO_PIN_4
+#define M0_GPIO_Port GPIOA
+#define M1_Pin GPIO_PIN_5
+#define M1_GPIO_Port GPIOA
+#define AUX_Pin GPIO_PIN_6
+#define AUX_GPIO_Port GPIOA
+#define TIM2_CH2_encoder_R_Pin GPIO_PIN_15
+#define TIM2_CH2_encoder_R_GPIO_Port GPIOA
+#define TIM2_CH2_encoder_L_Pin GPIO_PIN_3
+#define TIM2_CH2_encoder_L_GPIO_Port GPIOB
+#define KEY_encoder_Z_Pin GPIO_PIN_4
+#define KEY_encoder_Z_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
