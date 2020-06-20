@@ -23,16 +23,21 @@ yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h
+yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_crc.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h
+yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 yyproject\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 yyproject\main.o: ../Inc/adc.h
+yyproject\main.o: ../Inc/crc.h
 yyproject\main.o: ../Inc/dma.h
 yyproject\main.o: ../Inc/i2c.h
+yyproject\main.o: ../Inc/rtc.h
 yyproject\main.o: ../Inc/tim.h
 yyproject\main.o: ../Inc/usart.h
 yyproject\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
@@ -43,3 +48,4 @@ yyproject\main.o: ..\Drivers\Devices\inc\oled12864.h
 yyproject\main.o: ..\Drivers\Devices\inc\sys.h
 yyproject\main.o: ..\Drivers\Devices\inc\fonts.h
 yyproject\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+yyproject\main.o: ..\Drivers\Devices\inc\inside_flash.h
