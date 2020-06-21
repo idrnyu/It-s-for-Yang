@@ -183,9 +183,9 @@ int main(void)
   setAlarm(0, 0, 10);  // 多少时分秒后中断
 
   SSD1306_GotoXY(90, 0);
-  SSD1306_Puts("Manual", &Font_6x8, SSD1306_COLOR_BLACK, initial);
-  // SSD1306_Puts("Auto", &Font_6x8, SSD1306_COLOR_BLACK, initial);
-  
+  SSD1306_Puts("M", &Font_6x8, SSD1306_COLOR_WHITE, initial);
+  // SSD1306_Puts("A", &Font_6x8, SSD1306_COLOR_WHITE, initial);
+
   SSD1306_DrawLine2(0, 9, 128, 9, SSD1306_COLOR_WHITE);  // 画线
 
   SSD1306_DrawPixel(51, 8, SSD1306_COLOR_WHITE);  // 打点1
@@ -195,6 +195,10 @@ int main(void)
   SSD1306_DrawPixel(86, 8, SSD1306_COLOR_WHITE);  // 打点2
   SSD1306_DrawPixel(86, 7, SSD1306_COLOR_WHITE);  // 打点2
   SSD1306_DrawPixel(86, 6, SSD1306_COLOR_WHITE);  // 打点2
+
+  SSD1306_DrawPixel(100, 8, SSD1306_COLOR_WHITE);  // 打点3
+  SSD1306_DrawPixel(100, 7, SSD1306_COLOR_WHITE);  // 打点3
+  SSD1306_DrawPixel(100, 6, SSD1306_COLOR_WHITE);  // 打点3
 
   /* USER CODE END 2 */
  
