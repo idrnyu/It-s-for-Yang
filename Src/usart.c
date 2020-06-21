@@ -56,7 +56,7 @@ void MX_USART2_UART_Init(void)
 {
 
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -270,6 +270,22 @@ PUTCHAR_PROTOTYPE
   // HAL_UART_Transmit_DMA
 	HAL_UART_Transmit(&huart1 , (uint8_t *)&ch, 1, 0xFFFF);
 	return ch;
+}
+
+// 自定义printf到UART输出
+// my_printf(USART2, "%d\t", b[i]);
+int vsnprintf (char * s, size_t n, const char * format, va_list arg );
+void my_printf(UART_HandleTypeDef *huart, const char *fmt, ...)
+{
+  char buf[200], *p;
+  va_list ap;  
+  va_start(ap, fmt);  
+  vsnprintf(buf, sizeof(buf), fmt, ap);
+  for (p = buf; *p; ++p)
+  {
+    HAL_UART_Transmit(huart , (uint8_t *)p, 1, 0xFFFF);
+  }
+  va_end(ap);
 }
 /* USER CODE END 1 */
 

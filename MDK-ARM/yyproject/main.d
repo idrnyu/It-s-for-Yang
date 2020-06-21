@@ -41,6 +41,7 @@ yyproject\main.o: ../Inc/rtc.h
 yyproject\main.o: ../Inc/tim.h
 yyproject\main.o: ../Inc/usart.h
 yyproject\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+yyproject\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 yyproject\main.o: ../Inc/gpio.h
 yyproject\main.o: ..\Drivers\Devices\inc\delay.h
 yyproject\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

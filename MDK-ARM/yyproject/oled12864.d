@@ -38,6 +38,7 @@ yyproject\oled12864.o: ../Inc/i2c.h
 yyproject\oled12864.o: ..\Drivers\Devices\inc\sys.h
 yyproject\oled12864.o: ../Inc/usart.h
 yyproject\oled12864.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+yyproject\oled12864.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 yyproject\oled12864.o: ..\Drivers\Devices\inc\delay.h
 yyproject\oled12864.o: ..\Drivers\Devices\inc\fonts.h
 yyproject\oled12864.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

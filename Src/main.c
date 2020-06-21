@@ -69,7 +69,7 @@ uint8_t USART_RxBuffer[1];
 uint8_t USART_TxBuffer[] = "ok";
 
 uint32_t AD_DMA_1 = 0; // 保存ADC1数据
-char AD_STR[4];
+char AD_STR[3];
 // rtc 时间
 char time_[] = "00:00:00";
 RTC_TimeTypeDef stimestructure;
@@ -140,7 +140,7 @@ int main(void)
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_DMA(&huart1, USART_RxBuffer, 1); // 打开串口1 DMA的接收使能
-                                                    // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA发送数据
+  // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA发送数据
   printf("本系统由耶稣基督教徒龚宇开发\r\n");
   printf("2020年4月5日开始设计\r\n");
   printf("串口1初始化完成\r\n");
@@ -182,7 +182,7 @@ int main(void)
 
   setAlarm(0, 0, 10);  // 多少时分秒后中断
 
-  SSD1306_GotoXY(90, 0);
+  SSD1306_GotoXY(86, 0);
   SSD1306_Puts("M", &Font_6x8, SSD1306_COLOR_WHITE, initial);
   // SSD1306_Puts("A", &Font_6x8, SSD1306_COLOR_WHITE, initial);
 
@@ -192,13 +192,17 @@ int main(void)
   SSD1306_DrawPixel(51, 7, SSD1306_COLOR_WHITE);  // 打点1
   SSD1306_DrawPixel(51, 6, SSD1306_COLOR_WHITE);  // 打点1
 
-  SSD1306_DrawPixel(86, 8, SSD1306_COLOR_WHITE);  // 打点2
-  SSD1306_DrawPixel(86, 7, SSD1306_COLOR_WHITE);  // 打点2
-  SSD1306_DrawPixel(86, 6, SSD1306_COLOR_WHITE);  // 打点2
+  SSD1306_DrawPixel(82, 8, SSD1306_COLOR_WHITE);  // 打点2
+  SSD1306_DrawPixel(82, 7, SSD1306_COLOR_WHITE);  // 打点2
+  SSD1306_DrawPixel(82, 6, SSD1306_COLOR_WHITE);  // 打点2
 
-  SSD1306_DrawPixel(100, 8, SSD1306_COLOR_WHITE);  // 打点3
-  SSD1306_DrawPixel(100, 7, SSD1306_COLOR_WHITE);  // 打点3
-  SSD1306_DrawPixel(100, 6, SSD1306_COLOR_WHITE);  // 打点3
+  SSD1306_DrawPixel(96, 8, SSD1306_COLOR_WHITE);  // 打点3
+  SSD1306_DrawPixel(96, 7, SSD1306_COLOR_WHITE);  // 打点3
+  SSD1306_DrawPixel(96, 6, SSD1306_COLOR_WHITE);  // 打点3
+
+  my_printf(&huart1, "test\r\n");
+	my_printf(&huart1, "test\r\n");
+	my_printf(&huart1, "test\r\n");
 
   /* USER CODE END 2 */
  
@@ -288,7 +292,7 @@ void HAL_RTCEx_RTCEventCallback (RTC_HandleTypeDef *hrtc)
 
   // 使用DMA 单次转换  连续转换模式
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&AD_DMA_1, 1); //启用DMA的ADC转换，AD_DMA 0
-  sprintf(AD_STR, "%.2f'", (float)(AD_DMA_1 *3.3/4096));
+  sprintf(AD_STR, "%.1fC", (float)(AD_DMA_1 *3.3/4096));
   SSD1306_GotoXY(54, 0);
   SSD1306_Puts(AD_STR, &Font_6x8, SSD1306_COLOR_WHITE, initial);  
 

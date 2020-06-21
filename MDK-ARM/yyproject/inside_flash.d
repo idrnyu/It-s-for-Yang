@@ -36,4 +36,5 @@ yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 yyproject\inside_flash.o: ../Inc/usart.h
 yyproject\inside_flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+yyproject\inside_flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 yyproject\inside_flash.o: ..\Drivers\Devices\inc\delay.h
