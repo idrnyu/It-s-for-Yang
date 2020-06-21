@@ -67,9 +67,13 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 uint8_t USART_RxBuffer[1];
 uint8_t USART_TxBuffer[] = "ok";
-// rtc
-RTC_DateTypeDef sdatestructure;
+
+uint32_t AD_DMA_1 = 0; // 保存ADC1数据
+char AD_STR[4];
+// rtc 时间
+char time_[] = "00:00:00";
 RTC_TimeTypeDef stimestructure;
+RTC_AlarmTypeDef alarmValue;
 // crc 测试用
 // static const uint32_t aDataBuffer[114] =
 // {
@@ -104,9 +108,7 @@ RTC_TimeTypeDef stimestructure;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  uint32_t AD_DMA_1 = 0;          // 保存ADC1数据
-  char AD_STR[4];
-  char time_[] = "00:00:00";
+  
   /* USER CODE END 1 */
   
 
@@ -160,11 +162,11 @@ int main(void)
   // SSD1306_Puts("Christian YU", &Font_8x16, SSD1306_COLOR_WHITE, bold);
   // SSD1306_GotoXY(0, 24);
   // SSD1306_Puts("! 0 1 2 3 4 5", &Font_8x16, SSD1306_COLOR_WHITE, initial);
-  SSD1306_GotoXY(0, 0);
-  OLED_ShowText("我爱耶稣", SSD1306_COLOR_WHITE, initial);
-  SSD1306_GotoXY(0, 16);
-  OLED_ShowText("我爱耶稣", SSD1306_COLOR_WHITE, bold);
-  SSD1306_UpdateScreen(); // 更新显示
+  // SSD1306_GotoXY(0, 0);
+  // OLED_ShowText("我爱耶稣", SSD1306_COLOR_WHITE, initial);
+  // SSD1306_GotoXY(0, 16);
+  // OLED_ShowText("我爱耶稣", SSD1306_COLOR_WHITE, bold);
+  // SSD1306_UpdateScreen(); // 更新显示
   // OLED_Scroll_Display(0, 7, LEFT);
 
   // writeFlash(0x08007000, 0x55555555);
@@ -180,6 +182,20 @@ int main(void)
 
   setAlarm(0, 0, 10);  // 多少时分秒后中断
 
+  SSD1306_GotoXY(90, 0);
+  SSD1306_Puts("Manual", &Font_6x8, SSD1306_COLOR_BLACK, initial);
+  // SSD1306_Puts("Auto", &Font_6x8, SSD1306_COLOR_BLACK, initial);
+  
+  SSD1306_DrawLine2(0, 9, 128, 9, SSD1306_COLOR_WHITE);  // 画线
+
+  SSD1306_DrawPixel(51, 8, SSD1306_COLOR_WHITE);  // 打点1
+  SSD1306_DrawPixel(51, 7, SSD1306_COLOR_WHITE);  // 打点1
+  SSD1306_DrawPixel(51, 6, SSD1306_COLOR_WHITE);  // 打点1
+
+  SSD1306_DrawPixel(86, 8, SSD1306_COLOR_WHITE);  // 打点2
+  SSD1306_DrawPixel(86, 7, SSD1306_COLOR_WHITE);  // 打点2
+  SSD1306_DrawPixel(86, 6, SSD1306_COLOR_WHITE);  // 打点2
+
   /* USER CODE END 2 */
  
  
@@ -192,33 +208,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    // 使用DMA 单次转换  连续转换模式
-    HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&AD_DMA_1, 1); //启用DMA的ADC转换，AD_DMA 0
-    // printf("AD_DMA_1 = %.2f\r\n",(float)(AD_DMA_1 *3.3/4096));  // 打印ad数据
-
-    sprintf(AD_STR, "%.2f", (float)(AD_DMA_1 *3.3/4096));
-    SSD1306_GotoXY(0, 32);
-    SSD1306_Puts(AD_STR, &Font_8x16, SSD1306_COLOR_WHITE, initial);
-    SSD1306_UpdateScreen();            // 更新显示
-
     // printf("编码器：%d\r\n", (uint32_t)(__HAL_TIM_GET_COUNTER(&htim2)));
+    // Delay_ms(2000);
 
-    Delay_ms(2000);
-
-    // // 获取RTC当前时间，必须先获取时间
-    HAL_RTC_GetTime(&hrtc, &stimestructure, RTC_FORMAT_BIN);
-    // // 获取RTC当前日期
-    // HAL_RTC_GetDate(&hrtc, &sdatestructure, RTC_FORMAT_BIN);
-    // /* Display date Format : yy/mm/dd */
-    // printf("%02d/%02d/%02d\r\n",2000 + sdatestructure.Year, sdatestructure.Month, sdatestructure.Date); 
-    // /* Display time Format : hh:mm:ss */
-    // printf("%02d:%02d:%02d\r\n",stimestructure.Hours, stimestructure.Minutes, stimestructure.Seconds);
-    // printf("\r\n");
-		
-		sprintf(time_, "%02d:%02d:%02d", stimestructure.Hours, stimestructure.Minutes, stimestructure.Seconds);
-    SSD1306_GotoXY(0, 48);
-    SSD1306_Puts(time_, &Font_6x8, SSD1306_COLOR_WHITE, initial);
-    SSD1306_UpdateScreen();            // 更新显示
   }
   /* USER CODE END 3 */
 }
@@ -283,7 +275,20 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 // rtc 秒中断回调函数
 void HAL_RTCEx_RTCEventCallback (RTC_HandleTypeDef *hrtc)
 {
-  printf("sec!!\r\n");
+  // 获取RTC当前时间，必须先获取时间
+  // HAL_RTC_GetTime(&hrtc, &stimestructure, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(hrtc, &stimestructure, RTC_FORMAT_BIN);
+  sprintf(time_, "%02d:%02d:%02d", stimestructure.Hours, stimestructure.Minutes, stimestructure.Seconds);
+  SSD1306_GotoXY(0, 0);
+  SSD1306_Puts(time_, &Font_6x8, SSD1306_COLOR_WHITE, initial);
+
+  // 使用DMA 单次转换  连续转换模式
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&AD_DMA_1, 1); //启用DMA的ADC转换，AD_DMA 0
+  sprintf(AD_STR, "%.2f'", (float)(AD_DMA_1 *3.3/4096));
+  SSD1306_GotoXY(54, 0);
+  SSD1306_Puts(AD_STR, &Font_6x8, SSD1306_COLOR_WHITE, initial);  
+
+  SSD1306_UpdateScreen();            // 更新显示
 }
 /* USER CODE END 4 */
 
