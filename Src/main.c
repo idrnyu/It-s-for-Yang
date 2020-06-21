@@ -67,7 +67,9 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 uint8_t USART_RxBuffer[1];
 uint8_t USART_TxBuffer[] = "ok";
-
+// rtc
+RTC_DateTypeDef sdatestructure;
+RTC_TimeTypeDef stimestructure;
 // crc 测试用
 // static const uint32_t aDataBuffer[114] =
 // {
@@ -104,6 +106,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
   uint32_t AD_DMA_1 = 0;          // 保存ADC1数据
   char AD_STR[4];
+  char time_[] = "00:00:00";
   /* USER CODE END 1 */
   
 
@@ -143,6 +146,10 @@ int main(void)
   SSD1306_Init();                      // OLED12864 初始化
   HAL_ADCEx_Calibration_Start(&hadc1); // 开启ADC校准
 
+  HAL_RTCEx_SetSecond_IT(&hrtc);  // 开启秒中断
+
+  // HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);  // 在初始化中添加打开定时器的encoder模式
+
   // SSD1306_DrawLine(0, 0, 128, 0, SSD1306_COLOR_WHITE);
   // SSD1306_DrawLine2(0, 0, 128, 64, SSD1306_COLOR_WHITE);
   // SSD1306_DrawRectangle(0, 2, 20, 20, SSD1306_COLOR_WHITE);
@@ -172,7 +179,6 @@ int main(void)
   // while(1);
 
   /* USER CODE END 2 */
-
  
  
 
@@ -180,6 +186,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+
     // 使用DMA 单次转换  连续转换模式
     HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&AD_DMA_1, 1); //启用DMA的ADC转换，AD_DMA 0
     printf("AD_DMA_1 = %.2f\r\n",(float)(AD_DMA_1 *3.3/4096));
@@ -189,11 +199,24 @@ int main(void)
     SSD1306_Puts(AD_STR, &Font_8x16, SSD1306_COLOR_WHITE, initial);
     SSD1306_UpdateScreen();            // 更新显示
 
+    // printf("编码器：%d\r\n", (uint32_t)(__HAL_TIM_GET_COUNTER(&htim2)));
+
     Delay_ms(2000);
 
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+    // // 获取RTC当前时间，必须先获取时间
+    HAL_RTC_GetTime(&hrtc, &stimestructure, RTC_FORMAT_BIN);
+    // // 获取RTC当前日期
+    // HAL_RTC_GetDate(&hrtc, &sdatestructure, RTC_FORMAT_BIN);
+    // /* Display date Format : yy/mm/dd */
+    // printf("%02d/%02d/%02d\r\n",2000 + sdatestructure.Year, sdatestructure.Month, sdatestructure.Date); 
+    // /* Display time Format : hh:mm:ss */
+    // printf("%02d:%02d:%02d\r\n",stimestructure.Hours, stimestructure.Minutes, stimestructure.Seconds);
+    // printf("\r\n");
+		
+		sprintf(time_, "%02d:%02d:%02d", stimestructure.Hours, stimestructure.Minutes, stimestructure.Seconds);
+    SSD1306_GotoXY(0, 48);
+    SSD1306_Puts(time_, &Font_6x8, SSD1306_COLOR_WHITE, initial);
+    SSD1306_UpdateScreen();            // 更新显示
   }
   /* USER CODE END 3 */
 }
@@ -210,10 +233,10 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.LSEState = RCC_LSE_BYPASS;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
@@ -235,7 +258,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC;
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV2;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
@@ -248,6 +271,17 @@ void SystemClock_Config(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
   HAL_UART_Transmit(&huart1, USART_RxBuffer, 1, 0); // 串口发送数据
+}
+
+//闹钟中断回调函数
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{ 
+  printf("alarm!!\r\n");
+}
+// rtc 秒中断回调函数
+void HAL_RTCEx_RTCEventCallback (RTC_HandleTypeDef *hrtc)
+{
+  printf("sec!!\r\n");
 }
 /* USER CODE END 4 */
 

@@ -39,7 +39,9 @@ extern RTC_HandleTypeDef hrtc;
 void MX_RTC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+HAL_StatusTypeDef settime(uint8_t hours, uint8_t mins, uint8_t secs);  // 设置时分秒
+HAL_StatusTypeDef setdate(uint8_t years, uint8_t mons, uint8_t dates, uint8_t weeds); // 设置年月日
+HAL_StatusTypeDef setalarm(uint8_t hours, uint8_t minutes, uint8_t seconds); // 设置闹钟
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
