@@ -178,6 +178,8 @@ int main(void)
   //     printf("\n\r CRC right value  crc校验成功 \n\r");
   // while(1);
 
+  setAlarm(0, 0, 10);  // 多少时分秒后中断
+
   /* USER CODE END 2 */
  
  
@@ -192,7 +194,7 @@ int main(void)
 
     // 使用DMA 单次转换  连续转换模式
     HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&AD_DMA_1, 1); //启用DMA的ADC转换，AD_DMA 0
-    printf("AD_DMA_1 = %.2f\r\n",(float)(AD_DMA_1 *3.3/4096));
+    // printf("AD_DMA_1 = %.2f\r\n",(float)(AD_DMA_1 *3.3/4096));  // 打印ad数据
 
     sprintf(AD_STR, "%.2f", (float)(AD_DMA_1 *3.3/4096));
     SSD1306_GotoXY(0, 32);
@@ -276,7 +278,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 //闹钟中断回调函数
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 { 
-  printf("alarm!!\r\n");
+  printf("闹钟中断回调!!\r\n");
 }
 // rtc 秒中断回调函数
 void HAL_RTCEx_RTCEventCallback (RTC_HandleTypeDef *hrtc)

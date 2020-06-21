@@ -120,7 +120,7 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
 
 /* USER CODE BEGIN 1 */
 // 设置时分秒
-HAL_StatusTypeDef settime(uint8_t hours, uint8_t mins, uint8_t secs)
+HAL_StatusTypeDef setTime(uint8_t hours, uint8_t mins, uint8_t secs)
 {
   RTC_TimeTypeDef stime;
 
@@ -131,7 +131,7 @@ HAL_StatusTypeDef settime(uint8_t hours, uint8_t mins, uint8_t secs)
   return HAL_RTC_SetTime(&hrtc, &stime, RTC_FORMAT_BIN);
 }
 // 设置年月日
-HAL_StatusTypeDef setdate(uint8_t years, uint8_t mons, uint8_t dates, uint8_t weeds)
+HAL_StatusTypeDef setDate(uint8_t years, uint8_t mons, uint8_t dates, uint8_t weeds)
 {
   RTC_DateTypeDef sdate;
   
@@ -143,7 +143,7 @@ HAL_StatusTypeDef setdate(uint8_t years, uint8_t mons, uint8_t dates, uint8_t we
   return HAL_RTC_SetDate(&hrtc, &sdate, RTC_FORMAT_BIN);
 }
 //设置闹钟,记得写中断回调函数
-HAL_StatusTypeDef setalarm(uint8_t hours, uint8_t minutes, uint8_t seconds)
+HAL_StatusTypeDef setAlarm(uint8_t hours, uint8_t minutes, uint8_t seconds)
 {
   RTC_AlarmTypeDef sAlarm ;
   RTC_TimeTypeDef stime;
