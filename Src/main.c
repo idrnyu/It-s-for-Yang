@@ -135,9 +135,9 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C1_Init();
   MX_TIM2_Init();
-  MX_USART2_UART_Init();
   MX_RTC_Init();
   MX_CRC_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_DMA(&huart1, USART_RxBuffer, 1); // 打开串口1 DMA的接收使能
   // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA发送数据

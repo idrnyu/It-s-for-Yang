@@ -37,7 +37,7 @@ uint8_t SSD1306_Write(uint8_t data, Write_Model model)
 }
 
 // 写数据
-uint8_t SSD306_Write_DATA(uint8_t *data, uint16_t size)
+uint8_t SSD1306_Write_DATA(uint8_t *data, uint16_t size)
 {
   HAL_StatusTypeDef dmaxferstatus;
   uint8_t buf[size + 1];
@@ -56,6 +56,13 @@ uint8_t SSD306_Write_DATA(uint8_t *data, uint16_t size)
   {
     return 1;
   }
+}
+
+// 刷新OLED  写数据到内存
+void SSD1306_Refreash(void)
+{
+  uint16_t size = SSD1306_WIDTH * SSD1306_HEIGHT / 8;
+  HAL_I2C_Mem_Write_DMA(&hi2c1, SSD1306_I2C_ADDR, 0x40, I2C_MEMADD_SIZE_8BIT, SSD1306_Buffer, size);
 }
 
 /** 
@@ -78,16 +85,18 @@ void SSD1306_Fill(SSD1306_COLOR_t color)
  */
 void SSD1306_UpdateScreen(void)
 {
-  uint8_t m;
-  for (m = 0; m < 8; m++)
-  {
-    SSD1306_Write(0xB0 + m, SSD1306_CMD); //设置页地址（0~7）
-    SSD1306_Write(0x00, SSD1306_CMD);     //设置显示位置—列低地址
-    SSD1306_Write(0x10, SSD1306_CMD);     //设置显示位置—列高地址
+  // uint8_t m;
+  // for (m = 0; m < 8; m++)
+  // {
+  //   SSD1306_Write(0xB0 + m, SSD1306_CMD); //设置页地址（0~7）
+  //   SSD1306_Write(0x00, SSD1306_CMD);     //设置显示位置—列低地址
+  //   SSD1306_Write(0x10, SSD1306_CMD);     //设置显示位置—列高地址
 
-    // 写入数据
-    SSD306_Write_DATA(&SSD1306_Buffer[SSD1306_WIDTH * m], SSD1306_WIDTH);
-  }
+  //   // 写入数据
+  //   SSD1306_Write_DATA(&SSD1306_Buffer[SSD1306_WIDTH * m], SSD1306_WIDTH);
+  // }
+
+  SSD1306_Refreash();  // 刷新显示  DMA写入数据
 }
 
 /**
