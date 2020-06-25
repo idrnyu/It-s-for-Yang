@@ -268,6 +268,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 PUTCHAR_PROTOTYPE
 {
   // HAL_UART_Transmit_DMA
+  // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA·¢ËÍÊý¾Ý
 	HAL_UART_Transmit(&huart1 , (uint8_t *)&ch, 1, 0xFFFF);
 	return ch;
 }
@@ -276,16 +277,16 @@ PUTCHAR_PROTOTYPE
 // my_printf(USART2, "%d\t", b[i]);
 int vsnprintf (char * s, size_t n, const char * format, va_list arg );
 void my_printf(UART_HandleTypeDef *huart, const char *fmt, ...)
-{
-  char buf[200], *p;
+{	
+	char buf[256], *p;
   va_list ap;  
   va_start(ap, fmt);  
   vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
   for (p = buf; *p; ++p)
   {
     HAL_UART_Transmit(huart , (uint8_t *)p, 1, 0xFFFF);
   }
-  va_end(ap);
 }
 /* USER CODE END 1 */
 

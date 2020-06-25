@@ -3,9 +3,9 @@
 <title>Static Call Graph - [yyproject\yyproject.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image yyproject\yyproject.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Jun 22 22:06:13 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Jun 25 20:28:59 2020
 <BR><P>
-<H3>Maximum Stack Usage =        296 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        352 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; my_printf &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 <P>
@@ -1132,7 +1132,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c1]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, main.o(i.HAL_UART_RxCpltCallback))
+<P><STRONG><a name="[c1]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(i.HAL_UART_RxCpltCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = HAL_UART_RxCpltCallback &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
@@ -1488,8 +1488,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
-<P><STRONG><a name="[33]"></a>main</STRONG> (Thumb, 256 bytes, Stack size 8 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = main &rArr; my_printf &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
+<P><STRONG><a name="[33]"></a>main</STRONG> (Thumb, 280 bytes, Stack size 8 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = main &rArr; my_printf &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAlarm
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_printf
@@ -1517,8 +1517,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[f4]"></a>my_printf</STRONG> (Thumb, 56 bytes, Stack size 232 bytes, usart.o(i.my_printf))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = my_printf &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
+<P><STRONG><a name="[f4]"></a>my_printf</STRONG> (Thumb, 58 bytes, Stack size 288 bytes, usart.o(i.my_printf))
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = my_printf &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsnprintf

@@ -65,7 +65,8 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t USART_RxBuffer[1];
+uint8_t USART1_RxBuffer[1];
+uint8_t USART3_RxBuffer[1];
 uint8_t USART_TxBuffer[] = "ok";
 
 uint32_t AD_DMA_1 = 0; // 保存ADC1数据
@@ -108,9 +109,8 @@ RTC_AlarmTypeDef alarmValue;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  
+
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -139,8 +139,9 @@ int main(void)
   MX_CRC_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_DMA(&huart1, USART_RxBuffer, 1); // 打开串口1 DMA的接收使能
-  // HAL_UART_Transmit_DMA(&huart1,USART_TxBuffer,sizeof(USART_TxBuffer));  // DMA发送数据
+  HAL_UART_Receive_DMA(&huart1, USART1_RxBuffer, 1); // 打开串口1 DMA的接收使能
+  HAL_UART_Receive_DMA(&huart3, USART3_RxBuffer, 1); // 打开串口3 DMA的接收使能
+  
   printf("本系统由耶稣基督教徒龚宇开发\r\n");
   printf("2020年4月5日开始设计\r\n");
   printf("串口1初始化完成\r\n");
@@ -148,7 +149,7 @@ int main(void)
   SSD1306_Init();                      // OLED12864 初始化
   HAL_ADCEx_Calibration_Start(&hadc1); // 开启ADC校准
 
-  HAL_RTCEx_SetSecond_IT(&hrtc);  // 开启秒中断
+  HAL_RTCEx_SetSecond_IT(&hrtc); // 开启秒中断
 
   // HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);  // 在初始化中添加打开定时器的encoder模式
 
@@ -170,7 +171,7 @@ int main(void)
   // OLED_Scroll_Display(0, 7, LEFT);
 
   // writeFlash(0x08007000, 0x55555555);
-	// readFlash(0x08007000);
+  // readFlash(0x08007000);
   // while(1);
 
   // crc 校验
@@ -180,33 +181,32 @@ int main(void)
   //     printf("\n\r CRC right value  crc校验成功 \n\r");
   // while(1);
 
-  setAlarm(0, 0, 10);  // 多少时分秒后中断
+  setAlarm(0, 0, 10); // 多少时分秒后中断
 
   SSD1306_GotoXY(86, 0);
   SSD1306_Puts("M", &Font_6x8, SSD1306_COLOR_WHITE, initial);
   // SSD1306_Puts("A", &Font_6x8, SSD1306_COLOR_WHITE, initial);
 
-  SSD1306_DrawLine2(0, 9, 128, 9, SSD1306_COLOR_WHITE);  // 画线
+  SSD1306_DrawLine2(0, 9, 128, 9, SSD1306_COLOR_WHITE); // 画线
 
-  SSD1306_DrawPixel(51, 8, SSD1306_COLOR_WHITE);  // 打点1
-  SSD1306_DrawPixel(51, 7, SSD1306_COLOR_WHITE);  // 打点1
-  SSD1306_DrawPixel(51, 6, SSD1306_COLOR_WHITE);  // 打点1
+  SSD1306_DrawPixel(51, 8, SSD1306_COLOR_WHITE); // 打点1
+  SSD1306_DrawPixel(51, 7, SSD1306_COLOR_WHITE); // 打点1
+  SSD1306_DrawPixel(51, 6, SSD1306_COLOR_WHITE); // 打点1
 
-  SSD1306_DrawPixel(82, 8, SSD1306_COLOR_WHITE);  // 打点2
-  SSD1306_DrawPixel(82, 7, SSD1306_COLOR_WHITE);  // 打点2
-  SSD1306_DrawPixel(82, 6, SSD1306_COLOR_WHITE);  // 打点2
+  SSD1306_DrawPixel(82, 8, SSD1306_COLOR_WHITE); // 打点2
+  SSD1306_DrawPixel(82, 7, SSD1306_COLOR_WHITE); // 打点2
+  SSD1306_DrawPixel(82, 6, SSD1306_COLOR_WHITE); // 打点2
 
-  SSD1306_DrawPixel(96, 8, SSD1306_COLOR_WHITE);  // 打点3
-  SSD1306_DrawPixel(96, 7, SSD1306_COLOR_WHITE);  // 打点3
-  SSD1306_DrawPixel(96, 6, SSD1306_COLOR_WHITE);  // 打点3
+  SSD1306_DrawPixel(96, 8, SSD1306_COLOR_WHITE); // 打点3
+  SSD1306_DrawPixel(96, 7, SSD1306_COLOR_WHITE); // 打点3
+  SSD1306_DrawPixel(96, 6, SSD1306_COLOR_WHITE); // 打点3
 
+  my_printf(&huart1, "mytest\r\n");
+  my_printf(&huart1, "%d\r\n", 10);
+	my_printf(&huart1, "%d\r\n", 20);
   my_printf(&huart1, "test\r\n");
-	my_printf(&huart1, "test\r\n");
-	my_printf(&huart1, "test\r\n");
 
   /* USER CODE END 2 */
- 
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -218,7 +218,6 @@ int main(void)
 
     // printf("编码器：%d\r\n", (uint32_t)(__HAL_TIM_GET_COUNTER(&htim2)));
     // Delay_ms(2000);
-
   }
   /* USER CODE END 3 */
 }
@@ -235,7 +234,7 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -248,8 +247,7 @@ void SystemClock_Config(void)
   }
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -259,7 +257,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_ADC;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC | RCC_PERIPHCLK_ADC;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV2;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
@@ -270,18 +268,25 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 // 最后加上一个串口接收函数的回调函数，把接收到的数据再发出去。
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  HAL_UART_Transmit(&huart1, USART_RxBuffer, 1, 0); // 串口发送数据
+  if (huart->Instance == USART1)
+  {
+    HAL_UART_Transmit(&huart1, USART1_RxBuffer, 1, 0); // 串口发送数据
+  }
+  else
+  {
+    HAL_UART_Transmit(&huart1, USART3_RxBuffer, 1, 0); // 串口发送数据
+  }
 }
 
 //闹钟中断回调函数
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
-{ 
+{
   printf("闹钟中断回调!!\r\n");
 }
 // rtc 秒中断回调函数
-void HAL_RTCEx_RTCEventCallback (RTC_HandleTypeDef *hrtc)
+void HAL_RTCEx_RTCEventCallback(RTC_HandleTypeDef *hrtc)
 {
   // 获取RTC当前时间，必须先获取时间
   // HAL_RTC_GetTime(&hrtc, &stimestructure, RTC_FORMAT_BIN);
@@ -292,11 +297,11 @@ void HAL_RTCEx_RTCEventCallback (RTC_HandleTypeDef *hrtc)
 
   // 使用DMA 单次转换  连续转换模式
   HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&AD_DMA_1, 1); //启用DMA的ADC转换，AD_DMA 0
-  sprintf(AD_STR, "%.1fC", (float)(AD_DMA_1 *3.3/4096));
+  sprintf(AD_STR, "%.1fC", (float)(AD_DMA_1 * 3.3 / 4096));
   SSD1306_GotoXY(54, 0);
-  SSD1306_Puts(AD_STR, &Font_6x8, SSD1306_COLOR_WHITE, initial);  
+  SSD1306_Puts(AD_STR, &Font_6x8, SSD1306_COLOR_WHITE, initial);
 
-  SSD1306_UpdateScreen();            // 更新显示
+  SSD1306_UpdateScreen(); // 更新显示
 }
 /* USER CODE END 4 */
 
@@ -312,7 +317,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -321,7 +326,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
