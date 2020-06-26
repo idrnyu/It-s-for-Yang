@@ -1,15 +1,22 @@
 # # Prerequisites
-# *.d
+*.d
+
+*.crf
+*.dep
+*.iex
+*.lnp
+*.lst
+*.sct
 
 # # Object files
-# *.o
+*.o
 # *.ko
 # *.obj
 # *.elf
 
 # # Linker output
 # *.ilk
-# *.map
+*.map
 # *.exp
 
 # # Precompiled Headers

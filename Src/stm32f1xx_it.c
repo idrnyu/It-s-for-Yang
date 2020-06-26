@@ -69,7 +69,7 @@ extern DMA_HandleTypeDef hdma_usart3_tx;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart3;
 /* USER CODE BEGIN EV */
-
+extern void USER_UART_IRQHandler(UART_HandleTypeDef *huart);  // 声明一下自定义中断函数
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -368,11 +368,11 @@ void I2C1_ER_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-	USER_UART_IRQHandler(&huart1);       //新添加的函数，用来处理串口空闲中断
+
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+	USER_UART_IRQHandler(&huart1);       //新添加的函数，用来处理串口空闲中断
   /* USER CODE END USART1_IRQn 1 */
 }
 
@@ -382,11 +382,11 @@ void USART1_IRQHandler(void)
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */
-  USER_UART_IRQHandler(&huart3);       //新添加的函数，用来处理串口空闲中断
+
   /* USER CODE END USART3_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
-
+  USER_UART_IRQHandler(&huart3);       //新添加的函数，用来处理串口空闲中断
   /* USER CODE END USART3_IRQn 1 */
 }
 

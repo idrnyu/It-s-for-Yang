@@ -48,14 +48,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>yyproject\</OutputDirectory>
+          <OutputDirectory>.\yyproject\</OutputDirectory>
           <OutputName>yyproject</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath></ListingPath>
+          <ListingPath>.\yyproject\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F100xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;                                                               ../Drivers/STM32F1xx_HAL_Driver/Inc;                                                               ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;                                                               ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;                                                               ../Drivers/CMSIS/Include;                                                               ..\Drivers\Devices\inc</IncludePath>
+              <IncludePath>../Inc;                                                                ../Drivers/STM32F1xx_HAL_Driver/Inc;                                                                ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;                                                                ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;                                                                ../Drivers/CMSIS/Include;                                                                ..\Drivers\Devices\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
