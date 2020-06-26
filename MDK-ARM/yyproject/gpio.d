@@ -8,13 +8,13 @@ yyproject\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
 yyproject\gpio.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
 yyproject\gpio.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f100xb.h
 yyproject\gpio.o: ../Drivers/CMSIS/Include/core_cm3.h
-yyproject\gpio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+yyproject\gpio.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 yyproject\gpio.o: ../Drivers/CMSIS/Include/cmsis_version.h
 yyproject\gpio.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 yyproject\gpio.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 yyproject\gpio.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
 yyproject\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-yyproject\gpio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+yyproject\gpio.o: D:\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 yyproject\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
 yyproject\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 yyproject\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h

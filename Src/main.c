@@ -65,8 +65,8 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t USART1_RxBuffer[1];
-uint8_t USART3_RxBuffer[1];
+uint8_t USART1_RxBuffer[256];
+uint8_t USART3_RxBuffer[1024];
 uint8_t USART_TxBuffer[] = "ok";
 
 uint32_t AD_DMA_1 = 0; // 保存ADC1数据
@@ -139,8 +139,11 @@ int main(void)
   MX_CRC_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_DMA(&huart1, USART1_RxBuffer, 1); // 打开串口1 DMA的接收使能
-  HAL_UART_Receive_DMA(&huart3, USART3_RxBuffer, 1); // 打开串口3 DMA的接收使能
+	
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  // 开启串口1 空闲中断
+  __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);  // 开启串口3 空闲中断
+  HAL_UART_Receive_DMA(&huart1, USART1_RxBuffer, 256); // 打开串口1 DMA的接收使能
+  HAL_UART_Receive_DMA(&huart3, USART3_RxBuffer, 1024); // 打开串口3 DMA的接收使能
   
   printf("本系统由耶稣基督教徒龚宇开发\r\n");
   printf("2020年4月5日开始设计\r\n");
@@ -267,18 +270,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-// 最后加上一个串口接收函数的回调函数，把接收到的数据再发出去。
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  if (huart->Instance == USART1)
-  {
-    HAL_UART_Transmit(&huart1, USART1_RxBuffer, 1, 0); // 串口发送数据
-  }
-  else
-  {
-    HAL_UART_Transmit(&huart1, USART3_RxBuffer, 1, 0); // 串口发送数据
-  }
-}
 
 //闹钟中断回调函数
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)

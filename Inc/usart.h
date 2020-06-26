@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;

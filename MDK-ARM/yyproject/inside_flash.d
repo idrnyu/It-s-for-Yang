@@ -8,13 +8,13 @@ yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.
 yyproject\inside_flash.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
 yyproject\inside_flash.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f100xb.h
 yyproject\inside_flash.o: ../Drivers/CMSIS/Include/core_cm3.h
-yyproject\inside_flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+yyproject\inside_flash.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 yyproject\inside_flash.o: ../Drivers/CMSIS/Include/cmsis_version.h
 yyproject\inside_flash.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 yyproject\inside_flash.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 yyproject\inside_flash.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-yyproject\inside_flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+yyproject\inside_flash.o: D:\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
@@ -35,6 +35,7 @@ yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 yyproject\inside_flash.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 yyproject\inside_flash.o: ../Inc/usart.h
-yyproject\inside_flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-yyproject\inside_flash.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+yyproject\inside_flash.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+yyproject\inside_flash.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+yyproject\inside_flash.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
 yyproject\inside_flash.o: ..\Drivers\Devices\inc\delay.h

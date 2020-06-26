@@ -8,13 +8,13 @@ yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
 yyproject\fonts.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
 yyproject\fonts.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f100xb.h
 yyproject\fonts.o: ../Drivers/CMSIS/Include/core_cm3.h
-yyproject\fonts.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+yyproject\fonts.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 yyproject\fonts.o: ../Drivers/CMSIS/Include/cmsis_version.h
 yyproject\fonts.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 yyproject\fonts.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 yyproject\fonts.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-yyproject\fonts.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+yyproject\fonts.o: D:\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
@@ -34,4 +34,4 @@ yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 yyproject\fonts.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
-yyproject\fonts.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+yyproject\fonts.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
