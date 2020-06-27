@@ -66,10 +66,15 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t USART1_RxBuffer[256];
-uint8_t USART3_RxBuffer[1024];
-
-uint8_t USART3_Echo = 0;  // 串口3回显状态
+uint8_t USART_Cmd_Menu[] = "\r\n \
+  ***********************************************************\r\n \
+  * 串口3回显控制：                                          *\r\n \
+  *    输入 USART3_Echo=1 换行发送即可开启回显                *\r\n \
+  *    输入 USART3_Echo=0 换行发送即可关闭回显                *\r\n \
+  *                                                         *\r\n \
+  * 输入 help 换行发送查看命令控制说明                        *\r\n \
+  ***********************************************************\r\n \
+\r\n";
 
 uint32_t AD_DMA_1 = 0; // 保存ADC1数据
 char AD_STR[3];
@@ -77,6 +82,7 @@ char AD_STR[3];
 char time_[] = "00:00:00";
 RTC_TimeTypeDef stimestructure;
 RTC_AlarmTypeDef alarmValue;
+
 // crc 测试用
 // static const uint32_t aDataBuffer[114] =
 // {
@@ -143,23 +149,9 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 	
-	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  // 开启串口1 空闲中断
-  __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);  // 开启串口3 空闲中断
-  HAL_UART_Receive_DMA(&huart1, USART1_RxBuffer, 256); // 打开串口1 DMA的接收使能
-  HAL_UART_Receive_DMA(&huart3, USART3_RxBuffer, 1024); // 打开串口3 DMA的接收使能
+  USER_USART_Init();
   
-  printf("本系统由耶稣基督教徒龚宇开发\r\n");
-  printf("2020年4月5日开始设计\r\n");
-  printf("串口1初始化完成\r\n");
-  printf("\r\n \
-  ***********************************************************\r\n \
-  * 串口3回显控制：                                          *\r\n \
-  *    输入 USART3_Echo=1 换行发送即可开启回显                *\r\n \
-  *    输入 USART3_Echo=0 换行发送即可关闭回显                *\r\n \
-  *                                                         *\r\n \
-  * 输入 help 换行发送查看命令控制说明                        *\r\n \
-  ***********************************************************\r\n \
-  \r\n");
+  printf("%s", USART_Cmd_Menu);
 
   SSD1306_Init();                      // OLED12864 初始化
   HAL_ADCEx_Calibration_Start(&hadc1); // 开启ADC校准
@@ -215,11 +207,6 @@ int main(void)
   SSD1306_DrawPixel(96, 8, SSD1306_COLOR_WHITE); // 打点3
   SSD1306_DrawPixel(96, 7, SSD1306_COLOR_WHITE); // 打点3
   SSD1306_DrawPixel(96, 6, SSD1306_COLOR_WHITE); // 打点3
-
-  my_printf(&huart1, "mytest\r\n");
-  my_printf(&huart1, "%d\r\n", 10);
-	my_printf(&huart1, "%d\r\n", 20);
-  my_printf(&huart1, "test\r\n");
 
   /* USER CODE END 2 */
  

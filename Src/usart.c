@@ -21,9 +21,12 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-extern uint8_t USART1_RxBuffer[256];
-extern uint8_t USART3_RxBuffer[1024];
-extern uint8_t USART3_Echo;   // 串口3回显状态
+#define USART1_RX_Buff_Size 256
+#define USART3_RX_Buff_Size 1024
+uint8_t USART1_RxBuffer[USART1_RX_Buff_Size];
+uint8_t USART3_RxBuffer[USART3_RX_Buff_Size];
+uint8_t USART3_Echo = 0;   // 串口3回显状态
+extern uint8_t USART_Cmd_Menu[];
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -280,7 +283,7 @@ PUTCHAR_PROTOTYPE
 int vsnprintf(char *s, size_t n, const char *format, va_list arg);
 void my_printf(UART_HandleTypeDef *huart, const char *fmt, ...)
 {
-  char buf[256], *p;
+  static char buf[1024], *p;
   va_list ap;
   va_start(ap, fmt);
   vsnprintf(buf, sizeof(buf), fmt, ap);
@@ -306,40 +309,54 @@ void USART1_RX_deal_with(uint8_t *str)
 		USART3_Echo = 0;
 		my_printf(&huart1, "\r\n已关闭串口3数据回显到串口1\r\n");
 	}
+  // help
+  else if(strcmp("help\r\n", (const char *)str) == 0)
+  {
+    my_printf(&huart1, "%s", USART_Cmd_Menu);
+  }
 }
 
 // 用户自定义中断回调
 void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
 {
-  if (huart->Instance == USART3) // 判断是否是串口3
+  if (huart->Instance == USART1) // 判断是否是串口1
+  {
+    if (__HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE) != RESET) // 判断是否是空闲中断
+    {
+      __HAL_UART_CLEAR_IDLEFLAG(huart); // 清楚空闲中断标志（否则会一直不断进入中断）
+      HAL_UART_DMAStop(huart);    // 停止本次DMA传输
+      uint16_t data_length = USART1_RX_Buff_Size - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx); // 计算接收到的数据长度
+
+      HAL_UART_Transmit(&huart1, USART1_RxBuffer, data_length, 1); // 接受到的数据换给串口1输出
+			USART1_RX_deal_with(USART1_RxBuffer);
+      memset(USART1_RxBuffer, 0, data_length); // 清零接收缓冲区
+      HAL_UART_Receive_DMA(huart, USART1_RxBuffer, USART1_RX_Buff_Size); // 重启开始DMA传输 每次USART1_RX_Buff_Size字节数据
+    }
+  }
+  else if (huart->Instance == USART3)
   {
     if (__HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE) != RESET) // 判断是否是空闲中断
     {
       __HAL_UART_CLEAR_IDLEFLAG(huart); // 清楚空闲中断标志（否则会一直不断进入中断）
 
       HAL_UART_DMAStop(huart);                                              // 停止本次DMA传输
-      uint16_t data_length = 1024 - __HAL_DMA_GET_COUNTER(&hdma_usart3_rx); // 计算接收到的数据长度
+      uint16_t data_length = USART3_RX_Buff_Size - __HAL_DMA_GET_COUNTER(&hdma_usart3_rx); // 计算接收到的数据长度
       // printf("Receive Data(length = %d): \r\n", data_length);
       if(USART3_Echo == 1)
         HAL_UART_Transmit_DMA(&huart1, USART3_RxBuffer, data_length); // DMA发送数据 接受到的数据换给串口1输出
       // memset(USART3_RxBuffer, 0, data_length); // 清零接收缓冲区
-      HAL_UART_Receive_DMA(huart, USART3_RxBuffer, 1024); // 重启开始DMA传输 每次1024字节数据
+      HAL_UART_Receive_DMA(huart, USART3_RxBuffer, USART3_RX_Buff_Size); // 重启开始DMA传输 每次USART3_RX_Buff_Size字节数据
     }
   }
-  else if (huart->Instance == USART1)
-  {
-    if (__HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE) != RESET) // 判断是否是空闲中断
-    {
-      __HAL_UART_CLEAR_IDLEFLAG(huart); // 清楚空闲中断标志（否则会一直不断进入中断）
-      HAL_UART_DMAStop(huart);    // 停止本次DMA传输
-      uint16_t data_length = 256 - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx); // 计算接收到的数据长度
+}
 
-      HAL_UART_Transmit(&huart1, USART1_RxBuffer, data_length, 1); // 接受到的数据换给串口1输出
-			USART1_RX_deal_with(USART1_RxBuffer);
-      memset(USART1_RxBuffer, 0, data_length); // 清零接收缓冲区
-      HAL_UART_Receive_DMA(huart, USART1_RxBuffer, 256); // 重启开始DMA传输 每次256字节数据
-    }
-  }
+// 用户串口初始化
+void USER_USART_Init()
+{
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);  // 开启串口1 空闲中断
+  __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);  // 开启串口3 空闲中断
+  HAL_UART_Receive_DMA(&huart1, USART1_RxBuffer, USART1_RX_Buff_Size); // 打开串口1 DMA的接收使能
+  HAL_UART_Receive_DMA(&huart3, USART3_RxBuffer, USART3_RX_Buff_Size); // 打开串口3 DMA的接收使能
 }
 
 /* USER CODE END 1 */

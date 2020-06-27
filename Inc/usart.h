@@ -45,6 +45,7 @@ void MX_USART3_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 void my_printf(UART_HandleTypeDef *huart, const char *fmt, ...);
+void USER_USART_Init(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
