@@ -291,6 +291,23 @@ void my_printf(UART_HandleTypeDef *huart, const char *fmt, ...)
   }
 }
 
+// 处理串口1接受过来的数据
+void USART1_RX_deal_with(uint8_t *str)
+{
+  // 开启串口3回显
+	if(strcmp("USART3_Echo=1\r\n", (const char *)str) == 0)
+  {
+    USART3_Echo = 1;
+		my_printf(&huart1, "\r\n已打开串口3数据回显到串口1\r\n");
+  }
+	// 关闭串口3回显
+	else if(strcmp("USART3_Echo=0\r\n", (const char *)str) == 0)
+	{
+		USART3_Echo = 0;
+		my_printf(&huart1, "\r\n已关闭串口3数据回显到串口1\r\n");
+	}
+}
+
 // 用户自定义中断回调
 void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
 {
@@ -314,12 +331,17 @@ void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
     if (__HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE) != RESET) // 判断是否是空闲中断
     {
       __HAL_UART_CLEAR_IDLEFLAG(huart); // 清楚空闲中断标志（否则会一直不断进入中断）
-      HAL_UART_DMAStop(huart);    
+      HAL_UART_DMAStop(huart);    // 停止本次DMA传输
       uint16_t data_length = 256 - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx); // 计算接收到的数据长度
-      // printf("Receive Data(length = %d): \r\n", data_length);
-      HAL_UART_Transmit_DMA(&huart1, USART1_RxBuffer, data_length); // DMA发送数据 接受到的数据换给串口1输出
-      // memset(USART3_RxBuffer, 0, data_length); // 清零接收缓冲区
+
+      uint8_t *tempStr = (uint8_t *)malloc(sizeof(uint8_t) * data_length); // 分配新的内存空间  刚好是接收过来的数据大小
+			memcpy(tempStr, USART1_RxBuffer, data_length);  // 将接收到的数据拷贝到新的字符串变量中
+      memset(USART1_RxBuffer, 0, data_length); // 清零接收缓冲区
       HAL_UART_Receive_DMA(huart, USART1_RxBuffer, 256); // 重启开始DMA传输 每次256字节数据
+      // HAL_UART_Transmit_DMA(&huart1, tempStr, data_length); // DMA发送数据 接受到的数据换给串口1输出
+			HAL_UART_Transmit(&huart1, tempStr, data_length, 1); // 接受到的数据换给串口1输出
+			USART1_RX_deal_with(tempStr);
+			free(tempStr);  // 释放掉  释放太快了就会还没发完就挂掉了
     }
   }
 }

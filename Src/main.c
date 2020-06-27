@@ -35,6 +35,7 @@
 #include <stdlib.h>
 #include "oled12864.h"
 #include "inside_flash.h"
+#include "mystr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

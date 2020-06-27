@@ -18,7 +18,9 @@
 			"string": "c",
 			"fonts.h": "c",
 			"limits": "cpp",
-			"memory": "cpp"
+			"memory": "cpp",
+			"cstdlib": "c",
+			"xutility": "c"
 		},
 		"files.encoding": "gb2312"
 	}
