@@ -334,14 +334,10 @@ void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
       HAL_UART_DMAStop(huart);    // 停止本次DMA传输
       uint16_t data_length = 256 - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx); // 计算接收到的数据长度
 
-      uint8_t *tempStr = (uint8_t *)malloc(sizeof(uint8_t) * data_length); // 分配新的内存空间  刚好是接收过来的数据大小
-			memcpy(tempStr, USART1_RxBuffer, data_length);  // 将接收到的数据拷贝到新的字符串变量中
+      HAL_UART_Transmit(&huart1, USART1_RxBuffer, data_length, 1); // 接受到的数据换给串口1输出
+			USART1_RX_deal_with(USART1_RxBuffer);
       memset(USART1_RxBuffer, 0, data_length); // 清零接收缓冲区
       HAL_UART_Receive_DMA(huart, USART1_RxBuffer, 256); // 重启开始DMA传输 每次256字节数据
-      // HAL_UART_Transmit_DMA(&huart1, tempStr, data_length); // DMA发送数据 接受到的数据换给串口1输出
-			HAL_UART_Transmit(&huart1, tempStr, data_length, 1); // 接受到的数据换给串口1输出
-			USART1_RX_deal_with(tempStr);
-			free(tempStr);  // 释放掉  释放太快了就会还没发完就挂掉了
     }
   }
 }
