@@ -23,7 +23,6 @@
 /* USER CODE BEGIN 0 */
 extern uint8_t USART1_RxBuffer[256];
 extern uint8_t USART3_RxBuffer[1024];
-extern uint8_t USART1_Echo;   // 串口1回显状态
 extern uint8_t USART3_Echo;   // 串口3回显状态
 /* USER CODE END 0 */
 
@@ -318,8 +317,7 @@ void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
       HAL_UART_DMAStop(huart);    
       uint16_t data_length = 256 - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx); // 计算接收到的数据长度
       // printf("Receive Data(length = %d): \r\n", data_length);
-      if(USART1_Echo == 1)
-        HAL_UART_Transmit_DMA(&huart1, USART1_RxBuffer, data_length); // DMA发送数据 接受到的数据换给串口1输出
+      HAL_UART_Transmit_DMA(&huart1, USART1_RxBuffer, data_length); // DMA发送数据 接受到的数据换给串口1输出
       // memset(USART3_RxBuffer, 0, data_length); // 清零接收缓冲区
       HAL_UART_Receive_DMA(huart, USART1_RxBuffer, 256); // 重启开始DMA传输 每次256字节数据
     }

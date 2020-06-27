@@ -68,7 +68,6 @@ void SystemClock_Config(void);
 uint8_t USART1_RxBuffer[256];
 uint8_t USART3_RxBuffer[1024];
 
-uint8_t USART1_Echo = 1;  // 串口1回显状态
 uint8_t USART3_Echo = 0;  // 串口3回显状态
 
 uint32_t AD_DMA_1 = 0; // 保存ADC1数据
@@ -151,6 +150,15 @@ int main(void)
   printf("本系统由耶稣基督教徒龚宇开发\r\n");
   printf("2020年4月5日开始设计\r\n");
   printf("串口1初始化完成\r\n");
+  printf("\r\n \
+  ***********************************************************\r\n \
+  * 串口3回显控制：                                          *\r\n \
+  *    输入 USART3_Echo=1 换行发送即可开启回显                *\r\n \
+  *    输入 USART3_Echo=0 换行发送即可关闭回显                *\r\n \
+  *                                                         *\r\n \
+  * 输入 help 换行发送查看命令控制说明                        *\r\n \
+  ***********************************************************\r\n \
+  \r\n");
 
   SSD1306_Init();                      // OLED12864 初始化
   HAL_ADCEx_Calibration_Start(&hadc1); // 开启ADC校准
