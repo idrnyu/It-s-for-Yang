@@ -23,9 +23,9 @@
 /* USER CODE BEGIN 0 */
 #define USART1_RX_Buff_Size 256
 #define USART3_RX_Buff_Size 1024
-uint8_t USART1_RxBuffer[USART1_RX_Buff_Size];
-uint8_t USART3_RxBuffer[USART3_RX_Buff_Size];
-uint8_t USART3_Echo = 0;   // ´®¿Ú3»ØÏÔ×´Ì¬
+static uint8_t USART1_RxBuffer[USART1_RX_Buff_Size];
+static uint8_t USART3_RxBuffer[USART3_RX_Buff_Size];
+static uint8_t USART3_Echo = 0;   // ´®¿Ú3»ØÏÔ×´Ì¬
 extern uint8_t USART_Cmd_Menu[];
 /* USER CODE END 0 */
 
