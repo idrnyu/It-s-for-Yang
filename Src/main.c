@@ -66,7 +66,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t USART_Cmd_Menu[] = "\r\n \
+const uint8_t USART_Cmd_Menu[] = "\r\n \
   ***********************************************************\r\n \
   * 串口3回显控制：                                          *\r\n \
   *    输入 USART3_Echo=1 换行发送即可开启回显                *\r\n \

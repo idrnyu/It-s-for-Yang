@@ -26,7 +26,7 @@
 static uint8_t USART1_RxBuffer[USART1_RX_Buff_Size];
 static uint8_t USART3_RxBuffer[USART3_RX_Buff_Size];
 static uint8_t USART3_Echo = 0;   // ´®¿Ú3»ØÏÔ×´Ì¬
-extern uint8_t USART_Cmd_Menu[];
+extern const uint8_t USART_Cmd_Menu[];
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;

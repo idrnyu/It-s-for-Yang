@@ -2,6 +2,7 @@
 
 // ASCII码
 // !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[*]^_`abcdefghijklmnopqrstuvwxyz{|}~
+// 阴码   列行式   逆向  十六进制数  精简输出
 
 const uint8_t Font6x8[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // sp
